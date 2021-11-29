@@ -22,63 +22,67 @@ app.use(express.json());
 server.listen(port, hostname, async () => {
   console.log(`Server running at http://${hostname}:${port}/api-docs`);
   await sequelize.authenticate();
+  app.use(UserRouter)
   console.log("Database connected");
 });
 
 // HTTP REQUEST
+import { UserRouter } from "./routes/user.routes"
 
-app.use(express.json());
 
-app.post("/users", async (req: any, res: any) => {
-  const { fio, login, password, email, phone, role } = req.body;
+//! POST
+// app.post("/users", async (req: any, res: any) => {
+//   const { fio, login, password, email, phone, role } = req.body;
 
-  try {
-    const user = await User.create({ fio, login, password, email, phone, role });
+//   try {
+//     const user = await User.create({ fio, login, password, email, phone, role });
      
 
-    return res.json(user);
-  } catch (err) {
-    console.log(err)
-  return res.json(err);
-  }
-});
+//     return res.json(user);
+//   } catch (err) {
+//     console.log(err)
+//   return res.json(err);
+//   }
+// });
+//! POST
 
-app.get("/users", async (req: any, res: any) =>{
-  try {
-    const users = await User.findAll()
 
-    return res.json(users)
-  }catch (err) {
-    console.log(err)
-    return res.json(err);
-  }
-})
+// app.get("/users", async (req: any, res: any) =>{
+//   try {
+//     const users = await User.findAll()
 
-app.get("/user/:id", async (req: any, res: any) =>{
-  const id = req.params.id
-  try {
-    const user = await User.findOne({
-      where: { id }
-    })
+//     return res.json(users)
+//   }catch (err) {
+//     console.log(err)
+//     return res.json(err);
+//   }
+// })
 
-    return res.json(user)
-  }catch (err) {
-    console.log(err)
-    return res.json(err);
-  }
-})
+// app.get("/user/:id", async (req: any, res: any) =>{
+//   const id = req.params.id
+//   try {
+//     const user = await User.findOne({
+//       where: { id }
+//     })
 
-app.delete("/user/:id", async (req: any, res: any) =>{
-  const id = req.params.id
-  try {
-    const user = await User.findOne({
-      where: { id }
-    })
+//     return res.json(user)
+//   }catch (err) {
+//     console.log(err)
+//     return res.json(err);
+//   }
+// })
 
-    await user.destroy();
-    return res.status(204).json({message: 'User deleted successfully'});
-  }catch (err) {
-    console.log(err)
-    return res.json(err);
-  }
-})
+// app.delete("/user/:id", async (req: any, res: any) =>{
+//   const id = req.params.id
+//   try {
+//     const user = await User.findOne({
+//       where: { id }
+//     })
+
+//     await user.destroy();
+//     return res.status(204).json({message: 'User deleted successfully'});
+//   }catch (err) {
+//     console.log(err)
+//     return res.json(err);
+//   }
+// })

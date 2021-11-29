@@ -1,21 +1,21 @@
-// import user from "../models/user";
+import express from "express";
 
-// const {sequelize, User} = require('../models')
+const router = express.Router();
+
+const UserController = require("../controllers/user.controller");
+
+router.post('/users', UserController.create)
+
+router.get('/users', UserController.findAll)
+
+router.get('/user/:id', UserController.findOne)
+
+router.put('/user/:id', UserController.update)
+
+router.delete('/user/:id', UserController.delete)
 
 
-// const express = require('express');
-// const app = express();
 
-// app.use(express.json());
 
-// app.post('/users', async(req: any, res: any) => {
-//   const { fio, login, password, email, phone, role} = req.body;
 
-//   try {
-//     await User.create({ fio, login, password, email, phone, role})
-
-//     return res.json(user)
-//   }catch (err) {
-//     console.log(err)
-//   }
-// })
+export { router as UserRouter }
