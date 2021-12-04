@@ -21,7 +21,8 @@ app.use(express.json());
 
 server.listen(port, hostname, async () => {
   console.log(`Server running at http://${hostname}:${port}/api-docs`);
-  await sequelize.authenticate();
+  // await sequelize.authenticate();
+  await sequelize.sync()
   app.use(UserRouter)
   console.log("Database connected");
 });
