@@ -20,24 +20,32 @@ module.exports = (sequelize, DataTypes) => {
     },
     login: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: false,
+      required: true
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
+      required: true
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
+      required: true
     },
-    phone: DataTypes.STRING,
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     role: {
       type: DataTypes.STRING,
       allowNull: false,
     }
   }, {
     sequelize,
-    tableName: 'users-test',
+    tableName: 'users',
     modelName: 'User',
   });
   return User;
