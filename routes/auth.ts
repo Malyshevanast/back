@@ -8,16 +8,14 @@ const authMiddleware = require("../middleware/authMiddleware")
 const roleMiddleware = require("../middleware/roleMiddleware")
 
 
-router.post('/api/singup', [
+router.post('/signup', [
    check("login", "Имя пользователя должно быть введено").notEmpty(),
    check("password", "Пароль должен быть большей 4-х символов").isLength(4),
-], authController.singup)
+], authController.signup)
 
-router.post('/api/login', authController.login)
+router.post('/login', authController.login)
 
 router.get('/getusers', roleMiddleware(["Admin"]), authController.getUsers)
-
-
 
 
 export { router as authRouter }

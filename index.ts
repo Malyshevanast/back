@@ -16,20 +16,18 @@ const app = express();
 
 const server = http.createServer(app);
 const hostname = "0.0.0.0";
-const port = 3001;
+const port = 8080;
 
 app.use(bodyParser);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swDocument));
 app.use("/login", loginRouter);
-// app.use("/auth", authRouter)
 
 app.use(express.json());
 
 server.listen(port, hostname, async () => {
   console.log(`Server running at http://${hostname}:${port}/api-docs`);
-  await sequelize.sync()
-  // await sequelize.authenticate();
-  app.use(UserRouter, ServiceRouter, authRouter)
+  await sequelize.authenticate();
+  app.use("/api", UserRouter, ServiceRouter, authRouter)
   console.log("Database connected");
 });
 
