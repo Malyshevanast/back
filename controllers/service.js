@@ -1,7 +1,7 @@
 const { Service } = require("../models");
 
 class ServiceController {
-  async create(req, res) {
+  async addService(req, res) {
     const { name, price, doctor_id } = req.body;
 
     try {
@@ -75,7 +75,7 @@ class ServiceController {
       });
 
       await service.destroy();
-      return res.status(204).json({ message: "User deleted successfully" });
+      return res.status(200).json({ message: "Service deleted successfully" });
     } catch (err) {
       console.log(err);
       return res.json(err);

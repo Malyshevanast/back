@@ -15,7 +15,7 @@ function generateAccessToken(id, role) {
 }
 
 class authController {
-   async singup(req, res) {
+   async signup(req, res) {
       const errors = validationResult(req)
       const { fio, login, password, email, phone } = req.body;
 
@@ -24,7 +24,7 @@ class authController {
             return res.status(400).json({ message: "Ошибка при регистрации", errors })
          }
          const candidate = await User.findOne({
-            where: { login } && { email }
+            where: { login } 
          })
          if (candidate) {
             return res.status(400).json({ message: "Пользователь уже существует" })
@@ -40,20 +40,22 @@ class authController {
             role
          })
 
+         const token = generateAccessToken(user.id, user.role)
+
          res.status(200).json({
             message: "Пользователь зарегистрирован",
-            user
+            token
          })
       } catch (err) {
          console.log(err)
-         res.status(400).json({ message: "Sing up error" })
+         res.status(503).json({ message: "Sing up error" })
       }
    }
 
    async login(req, res) {
 
       try {
-         const { login, password, } = req.body;
+         const { login, password } = req.body;
 
          const user = await User.findOne({
             where: { login }
@@ -67,16 +69,16 @@ class authController {
             res.status(400).json({ message: "Неверный пароль" })
          }
 
-         const token = generateAccessToken(user._id, user.role)
+         const token = generateAccessToken(user.id, user.role)
 
          return res.json({ token })
       } catch (err) {
          console.log(err)
-         res.status(400).json({ message: "Log in error" })
+         res.status(503).json({ message: "Log in error" })
       }
    }
 
-   async getUsers(req, res) {
+   async getUsers(_, res) {
 
       try {
          const users = await User.findAll();

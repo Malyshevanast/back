@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   User.init({
     fio: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     login: {
       type: DataTypes.STRING,
@@ -37,11 +37,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     phone: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     role: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     }
   }, {
     sequelize,
